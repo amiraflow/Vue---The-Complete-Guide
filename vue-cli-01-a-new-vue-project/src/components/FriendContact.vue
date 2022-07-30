@@ -21,13 +21,6 @@ export default {
     data(){
     return {
         detailsAreVisible: false,
-        friend: {
-            
-                id: 'amira',
-                name: 'Amira M',
-                phone: '0000',
-                email: 'amira.midzic@gmail.com'
-            },
         };
     },
     methods: {
