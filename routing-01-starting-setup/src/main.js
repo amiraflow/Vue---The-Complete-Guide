@@ -10,6 +10,7 @@ import TeamMembers from './components/teams/TeamMembers';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
+        {path: '/', component: TeamsList },
         {path: '/teams', component: TeamsList },
         {path: '/users', component: UsersList },
         {path: '/teams/:teamId', component: TeamMembers, props: true}, //dinamyc param passed as a prop
