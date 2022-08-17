@@ -5,15 +5,17 @@ import App from './App.vue';
 import TeamsList from './components/teams/TeamsList';
 import UsersList from './components/users/UsersList';
 import TeamMembers from './components/teams/TeamMembers';
+import NotFound from './components/nav/NotFound';
 
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/', component: TeamsList },
+        {path: '/', redirect: '/teams' },
         {path: '/teams', component: TeamsList },
         {path: '/users', component: UsersList },
-        {path: '/teams/:teamId', component: TeamMembers, props: true}, //dinamyc param passed as a prop
+        {path: '/teams/:teamId', component: TeamMembers, props: true}, //dynamic param passed as a prop
+        {oath: '/:notFound(.*)', component: NotFound}
     ]
 });
 
