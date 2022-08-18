@@ -1,5 +1,8 @@
 <template>
+<div>
   <h3>{{ counter }}</h3>
+</div>
+
 </template>
 
 <script>
