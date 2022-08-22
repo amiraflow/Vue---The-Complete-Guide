@@ -7,10 +7,13 @@
 <section>
     <base-card>
             <div class="controls">
-                <base-button mode="outline">Refresh</base-button>
-                <base-button v-if="!isCoach" link to="/register">Register as Coach</base-button>    
+                <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+                <base-button v-if="!isCoach && !isLoading" link to="/register">Register as Coach</base-button>    
             </div>
-            <ul v-if="hasCoaches">
+            <div v-if="isLoading">
+                <base-spinner></base-spinner>
+            </div>
+            <ul v-else-if="hasCoaches">
                 <coach-item v-for="coach in filteredCoaches" 
                 :key="coach.id"
                 :id="coach.id"
@@ -37,6 +40,7 @@ export default {
     },
     data(){
         return {
+            isLoading: false,
             activeFilters: {
                 frontend: true,
                 backend: true,
@@ -61,15 +65,23 @@ export default {
             })
         },
         hasCoaches(){
-            return this.$store.getters['coaches/hasCoaches'];
+            return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
         },
            isCoach(){
             return this.$store.getters['coaches/isCoach'];
         }
     },
+    created(){
+        this.loadCoaches();
+    },
     methods: {
         setFilters(updatedFilters){
             this.activeFilters = updatedFilters;
+        },
+        async loadCoaches(){
+            this.isLoading = true;
+            await this.$store.dispatch('coaches/loadCoaches');
+            this.isLoading = false;
         }
     }
 }
