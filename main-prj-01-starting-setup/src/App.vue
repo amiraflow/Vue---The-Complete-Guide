@@ -1,61 +1,62 @@
 <template>
-<div>
-<the-header></the-header>
-<router-view v-slot="slotProps">
-  <transition name="route" mode="out-in">
-    <component :is="slotProps.Component"></component>
-  </transition>
-</router-view>
-</div>
+  <section class="container">
+    <h2>{{ userName }}</h2>
+    <h3>{{ age }}</h3>
+    <button @click="setAge">Change Age</button>
+  </section>
 </template>
 
-
 <script>
-import TheHeader from './components/layout/TheHeader.vue';
+import { ref } from 'vue';
 
 export default {
-    components: {
-        TheHeader
+  setup() {
+    const uName = ref('Maximilian');
+    const uAge = ref(31);
+    // const user = reactive({
+    //   name: 'Maximilian',
+    //   age: 31,
+    // });
+
+    function setNewAge() {
+      uAge.value = 33;
     }
-}
+
+    return { userName: uName, age: uAge, setAge: setNewAge };
+  },
+  // data() {
+  //   return {
+  //     userName: 'Maximilian',
+  //     age: 31
+  //   };
+  // },
+  // methods: {
+  //   setNewAge() {
+  //     this.age = 32;
+  //   }
+  // }
+};
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif;
 }
 
 body {
   margin: 0;
 }
 
-.route-enter-from {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-
-.route-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.route-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.route-leave-active {
-  transition: all 0.3s ease-in;
-}
-
-.route-enter-to,
-.route-leave-from {
-  opacity: 1;
-  transform: translateY(0);
+.container {
+  margin: 3rem auto;
+  max-width: 30rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  text-align: center;
 }
 </style>
